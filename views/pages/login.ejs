@@ -1,0 +1,50 @@
+<section class="login-container">
+    <div class="login-card glass">
+        <h2>Admin Access</h2>
+        <form action="/admin/login" method="POST">
+            <div class="form-group">
+                <input type="password" name="password" placeholder="Enter Password" required>
+            </div>
+            <button type="submit" class="btn">Login</button>
+        </form>
+        <% if (locals.error) { %>
+            <p class="error-msg">
+                <%= error %>
+            </p>
+            <% } %>
+    </div>
+</section>
+
+<style>
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60vh;
+    }
+
+    .login-card {
+        padding: 3rem;
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .form-group {
+        margin: 2rem 0;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+        border-radius: 4px;
+    }
+
+    .error-msg {
+        color: #ff4d4d;
+        margin-top: 1rem;
+    }
+</style>

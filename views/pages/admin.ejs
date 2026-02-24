@@ -1,0 +1,84 @@
+<section class="admin-hero">
+    <h1>Admin Dashboard</h1>
+    <a href="/admin/logout" class="btn logout-btn">Logout</a>
+</section>
+
+<div class="grid admin-grid">
+    <!-- Music Upload -->
+    <div class="admin-card glass">
+        <h2>Upload Music</h2>
+        <form action="/admin/upload/music" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Select Track (.mp3, .wav)</label>
+                <input type="file" name="music" accept=".mp3, .wav" required>
+            </div>
+            <button type="submit" class="btn">Upload Track</button>
+        </form>
+    </div>
+
+    <!-- Web Project Upload -->
+    <div class="admin-card glass">
+        <h2>Upload Web Project</h2>
+        <form action="/admin/upload/project" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Project Name (Folder Name)</label>
+                <input type="text" name="projectName" placeholder="e.g. portfolio-v1" required>
+            </div>
+            <div class="form-group">
+                <label>Select Project Archive (.zip)</label>
+                <input type="file" name="web-project" accept=".zip" required>
+            </div>
+            <button type="submit" class="btn">Upload & Deploy</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    .admin-hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        margin-bottom: 2rem;
+    }
+
+    .logout-btn {
+        border-color: #ff4d4d;
+        color: #ff4d4d;
+    }
+
+    .logout-btn:hover {
+        background: #ff4d4d;
+        color: white;
+    }
+
+    .admin-card {
+        padding: 2rem;
+    }
+
+    .admin-card h2 {
+        margin-bottom: 1.5rem;
+        color: var(--accent);
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--text-secondary);
+    }
+
+    input[type="text"],
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        border-radius: 4px;
+    }
+</style>

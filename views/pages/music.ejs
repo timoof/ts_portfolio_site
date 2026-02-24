@@ -1,0 +1,42 @@
+<section class="page-hero" data-animate>
+    <h1>Music Production</h1>
+    <p>Original Compositions & Sound Design</p>
+</section>
+
+<section class="section">
+    <% if (tracks.length===0) { %>
+        <p class="empty-state">No tracks uploaded yet. Visit <a href="/admin">Admin Portal</a> to upload music.</p>
+        <% } else { %>
+            <div class="music-grid">
+                <% tracks.forEach(function(track, i) { %>
+                    <div class="music-card" data-src="<%= track.path %>" data-title="<%= track.title %>" data-animate
+                        data-animate-delay="<%= Math.min(i + 1, 6) %>">
+                        <div class="icon-wrapper">
+                            <ion-icon name="musical-note-outline"></ion-icon>
+                        </div>
+                        <h3>
+                            <%= track.title %>
+                        </h3>
+                        <button class="btn play-btn">
+                            <ion-icon name="play"></ion-icon> Play
+                        </button>
+                    </div>
+                    <% }); %>
+            </div>
+            <% } %>
+</section>
+
+<!-- Persistent Player Footer -->
+<div id="audio-player-bar" class="player-bar hidden">
+    <div class="player-content">
+        <div class="track-info">
+            <h4 id="now-playing-title">Select a track</h4>
+        </div>
+        <audio id="main-audio" controls>
+            Your browser does not support the audio element.
+        </audio>
+        <button id="close-player" class="close-btn"><ion-icon name="close"></ion-icon></button>
+    </div>
+</div>
+
+<script src="/js/audio-player.js"></script>

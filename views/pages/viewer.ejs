@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viewing: <%= project %>
+    </title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .viewer-header {
+            height: 50px;
+            background: #080808;
+            color: white;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            justify-content: space-between;
+            border-bottom: 1px solid #333;
+        }
+
+        .viewer-header a {
+            color: #00f2ff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100% - 50px);
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="viewer-header">
+        <span>Viewing Project: <strong>
+                <%= project %>
+            </strong></span>
+        <a href="/web-dev">&larr; Back to Portfolio</a>
+    </div>
+    <iframe src="/uploads/web-projects/<%= project %>/index.html"></iframe>
+</body>
+
+</html>

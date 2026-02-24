@@ -1,0 +1,24 @@
+<section class="page-hero" data-animate>
+    <h1>Web Development</h1>
+    <p>Applications, Experiments & Sites</p>
+</section>
+
+<section class="section">
+    <% if (projects.length===0) { %>
+        <p class="empty-state">No projects hosted yet. Visit <a href="/admin">Admin Portal</a> to upload.</p>
+        <% } else { %>
+            <div class="projects-grid">
+                <% projects.forEach(function(project, i) { %>
+                    <div class="project-card" data-animate data-animate-delay="<%= Math.min(i + 1, 6) %>">
+                        <div class="project-preview">
+                            <ion-icon name="code-slash-outline"></ion-icon>
+                        </div>
+                        <h3>
+                            <%= project %>
+                        </h3>
+                        <a href="/view-project/<%= project %>" class="btn">Launch Project</a>
+                    </div>
+                    <% }); %>
+            </div>
+            <% } %>
+</section>

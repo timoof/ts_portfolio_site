@@ -1,0 +1,6 @@
+node_modules/
+uploads/music/
+uploads/web-projects/
+uploads/temp/
+.DS_Store
+*.log
