@@ -14,26 +14,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Remove old /domains folder from FTP
-        run: |
-          sudo apt-get install -y lftp
-          lftp -e "
-            set ftp:passive-mode true;
-            rm -rf /domains;
-            bye;
-          " -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOST }}
-        continue-on-error: true
-
       - name: Deploy to FTP (passive mode)
         run: |
-          sudo apt-get install -y lftp
           lftp -e "
             set ftp:passive-mode true;
+            set ssl:verify-certificate false;
             mirror --reverse --delete --verbose --parallel=5 \
-              --exclude-glob .git* \
-              --exclude-glob node_modules/ \
-              --exclude-glob uploads/ \
-              --exclude-glob .gitignore \
-              ./ /public_html/;
+              --exclude-glob '.git*' \
+              --exclude-glob 'node_modules/' \
+              --exclude-glob 'uploads/' \
+              --exclude-glob '.gitignore' \
+              ./ ./domains/timofey.se/public_html/;
             bye;
           " -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOST }}
