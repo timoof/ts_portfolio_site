@@ -7,15 +7,26 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to FTP Server
+    name: Build & Deploy to FTP
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: node build.js
+
       - name: Install lftp
         run: sudo apt-get install -y lftp
 
-      - name: Deploy to FTP (passive mode)
-        run: lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -e "set ftp:passive-mode true; set ssl:verify-certificate false; mirror --reverse --delete --verbose --parallel=5 --exclude-glob '.git*' --exclude-glob 'node_modules/' --exclude-glob 'uploads/' --exclude-glob '.gitignore' ./ ./domains/timofey.se/public_html/; quit" ${{ secrets.FTP_HOST }}
+      - name: Deploy dist/ to FTP (passive mode)
+        run: lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -e "set ftp:passive-mode true; set ssl:verify-certificate false; mirror --reverse --delete --verbose --parallel=5 ./dist/ ./domains/timofey.se/public_html/; quit" ${{ secrets.FTP_HOST }}
