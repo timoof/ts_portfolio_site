@@ -18,15 +18,4 @@ jobs:
         run: sudo apt-get install -y lftp
 
       - name: Deploy to FTP (passive mode)
-        run: |
-          lftp -e "
-            set ftp:passive-mode true;
-            set ssl:verify-certificate false;
-            mirror --reverse --delete --verbose --parallel=5 \
-              --exclude-glob '.git*' \
-              --exclude-glob 'node_modules/' \
-              --exclude-glob 'uploads/' \
-              --exclude-glob '.gitignore' \
-              ./ ./domains/timofey.se/public_html/;
-            bye;
-          " -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} ${{ secrets.FTP_HOST }}
+        run: lftp -u ${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }} -e "set ftp:passive-mode true; set ssl:verify-certificate false; mirror --reverse --delete --verbose --parallel=5 --exclude-glob '.git*' --exclude-glob 'node_modules/' --exclude-glob 'uploads/' --exclude-glob '.gitignore' ./ ./domains/timofey.se/public_html/; quit" ${{ secrets.FTP_HOST }}
